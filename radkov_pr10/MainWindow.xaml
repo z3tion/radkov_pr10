@@ -1,0 +1,61 @@
+﻿<Window x:Class="radkov_pr10.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:radkov_pr10"
+        mc:Ignorable="d"
+        Title="Список задач" Height="450" Width="500">
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.GradientActiveCaptionColorKey}}" x:Key="buttonBackColor"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Список задач" 
+                   FontFamily="Georgia" FontSize="16" FontWeight="Bold"
+                   Margin="10, 10, 0, 0"/>
+        <ListBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" 
+                 ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedTask}"
+                 Margin="10" HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="5">
+                            <TextBlock Text="{Binding Path=Title}"/>
+                            <TextBlock Text="{Binding Path=IsCompleted}"/>
+                        </StackPanel>
+                        <CheckBox Grid.Column="1" IsChecked="False" Margin="0, 10, 0, 0"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBox Grid.Row="3" Grid.Column="0" Margin="10, 10, 10, 10" BorderBrush="Black" 
+                 Text="{Binding NewTaskTitle, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <Button Grid.Row="3" Grid.Column="1" Content="Добавить" 
+                Margin="10, 10, 10, 10" 
+                BorderBrush="Black" Background="{StaticResource buttonBackColor}"
+                Command="{Binding AddTaskCommand}"/>
+        <Button Grid.Row="3" Grid.Column="2" Content="Удалить" 
+                Margin="10, 10, 10, 10" 
+                BorderBrush="Black" Background="{StaticResource buttonBackColor}"
+                Command="{Binding DeleteTaskCommand}"/>
+
+    </Grid>
+</Window>
