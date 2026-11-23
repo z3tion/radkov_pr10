@@ -39,9 +39,8 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Margin="5">
                             <TextBlock Text="{Binding Path=Title}"/>
-                            <TextBlock Text="{Binding Path=IsCompleted}"/>
                         </StackPanel>
-                        <CheckBox Grid.Column="1" IsChecked="False" Margin="0, 10, 0, 0"/>
+                        <CheckBox Grid.Column="1" IsChecked="{Binding Path=IsCompleted}" Margin="0, 10, 0, 0"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
